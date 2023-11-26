@@ -45,5 +45,6 @@ namespace Shop.Controllers
             await _productService.Delete(id);
             return Ok();
         }
+
     }
 }

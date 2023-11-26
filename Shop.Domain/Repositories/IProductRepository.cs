@@ -20,6 +20,5 @@ namespace Shop.Domain.Repositories
 
         Task<Product> Get(int id);
 
-
     }
 }

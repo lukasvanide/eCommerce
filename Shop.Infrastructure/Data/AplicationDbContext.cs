@@ -10,6 +10,7 @@ public class AplicationDbContext : DbContext
 
     }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,5 +33,18 @@ public class AplicationDbContext : DbContext
                 quantity = 5,
 
             });
+
+        modelBuilder.Entity<Category>().HasData(
+                new Category
+                {
+                    CategoryId = 1,
+                    CategoryName = "Keyboard",
+                },
+                new Category
+                {
+                    CategoryId = 2,
+                    CategoryName = "Mouse",
+                });
+
     }
 }

@@ -30,7 +30,7 @@ namespace Shop.Infrastructure.Repositories
         public async Task<IEnumerable<Product>> GetAll(int? id, int? minPrice,int? maxPrice, string? name)
         {
             var query = _db.Products.AsQueryable();
-            int priceFilter = 55;
+
             if (id.HasValue)
             {
                query = query.Where(p => p.Id == id.Value);
