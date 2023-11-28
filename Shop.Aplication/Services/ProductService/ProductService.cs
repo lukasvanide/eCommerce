@@ -36,10 +36,10 @@ namespace Shop.Aplication.Services.ProductService
 
         }
 
-        public async Task<IEnumerable<Product>> GetAll(int? id,int? minprice,int? maxPrice, string? name)
+        public async Task<IEnumerable<Product>> GetAll(int? id,int? minprice,int? maxPrice, string? name, int? categoryId)
         {
 
-           return await _productRepository.GetAll(id, minprice, maxPrice, name);
+           return await _productRepository.GetAll(id, minprice, maxPrice, name, categoryId);
         }
 
         public async Task Update(UpdateProductInput input)

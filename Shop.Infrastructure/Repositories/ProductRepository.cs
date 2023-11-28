@@ -27,7 +27,7 @@ namespace Shop.Infrastructure.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAll(int? id, int? minPrice,int? maxPrice, string? name)
+        public async Task<IEnumerable<Product>> GetAll(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId)
         {
             var query = _db.Products.AsQueryable();
 
@@ -49,6 +49,11 @@ namespace Shop.Infrastructure.Repositories
             if (!string.IsNullOrEmpty(name))
             {
                 query = query.Where(p => p.Name.Contains(name));
+            }
+
+            if (categoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == categoryId.Value);
             }
 
             return await query.ToListAsync();

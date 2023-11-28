@@ -41,12 +41,12 @@ namespace Shop.Infrastructure.Migrations
                         new
                         {
                             CategoryId = 1,
-                            CategoryName = "Keyboard"
+                            CategoryName = "Mouse"
                         },
                         new
                         {
                             CategoryId = 2,
-                            CategoryName = "Mouse"
+                            CategoryName = "Keyboard"
                         });
                 });
 
@@ -57,6 +57,9 @@ namespace Shop.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -74,12 +77,15 @@ namespace Shop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "axali",
                             Name = "fortoxali",
                             Price = 5,
@@ -88,11 +94,28 @@ namespace Shop.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
+                            CategoryId = 2,
                             Description = "axali",
                             Name = "fortoxali",
                             Price = 5,
                             quantity = 5
                         });
+                });
+
+            modelBuilder.Entity("Shop.Domain.Product", b =>
+                {
+                    b.HasOne("Shop.Domain.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Shop.Domain.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

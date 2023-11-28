@@ -22,7 +22,7 @@ public class AplicationDbContext : DbContext
                 Description = "axali",
                 Price = 5,
                 quantity = 5,
-
+                CategoryId = 1,
             },
             new Product()
             {
@@ -31,19 +31,19 @@ public class AplicationDbContext : DbContext
                 Description = "axali",
                 Price = 5,
                 quantity = 5,
-
+                CategoryId = 2,
             });
 
         modelBuilder.Entity<Category>().HasData(
                 new Category
                 {
                     CategoryId = 1,
-                    CategoryName = "Keyboard",
+                    CategoryName = "Mouse",
                 },
                 new Category
                 {
                     CategoryId = 2,
-                    CategoryName = "Mouse",
+                    CategoryName = "Keyboard",
                 });
 
     }

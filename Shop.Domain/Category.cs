@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Shop.Domain
@@ -12,6 +13,8 @@ namespace Shop.Domain
         [Key]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        [JsonIgnore]
+        public IEnumerable<Product> Products { get;  set; }  
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json.Serialization;
 
 namespace Shop.Domain
 {
@@ -18,5 +19,8 @@ namespace Shop.Domain
 
         public int quantity { get; set; }
 
+        public int CategoryId { get; set; }
+        [JsonIgnore]
+        public Category Category { get; set; } 
     }
 }
