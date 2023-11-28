@@ -19,9 +19,9 @@ namespace Shop.Controllers
         [HttpGet("search/")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<ActionResult<IEnumerable<Product>>> GetItems(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId)
+        public async Task<ActionResult<IEnumerable<Product>>> GetItems(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId,string? categoryName)
         {
-            var products = await _productService.GetAll(id, minPrice, maxPrice, name, categoryId);
+            var products = await _productService.GetAll(id, minPrice, maxPrice, name, categoryId, categoryName);
             return Ok(products);
         }
 

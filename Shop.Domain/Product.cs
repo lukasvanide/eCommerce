@@ -20,6 +20,7 @@ namespace Shop.Domain
         public int quantity { get; set; }
 
         public int CategoryId { get; set; }
+
         [JsonIgnore]
         public Category Category { get; set; } 
     }

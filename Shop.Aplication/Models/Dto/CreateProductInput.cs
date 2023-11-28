@@ -1,4 +1,6 @@
-﻿namespace Shop.Aplication.Models.Dto
+﻿using Shop.Infrastructure.Migrations;
+
+namespace Shop.Aplication.Models.Dto
 {
     public class CreateProductInput
     {
@@ -10,5 +12,7 @@
         public int Price { get; set; }
 
         public int quantity { get; set; }      
+
+        public int CategoryId { get; set; }
     }
 }

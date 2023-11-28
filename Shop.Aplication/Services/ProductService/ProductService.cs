@@ -29,17 +29,19 @@ namespace Shop.Aplication.Services.ProductService
                 Name = input.Name,
                 Description = input.Description,
                 Price = input.Price,
-                quantity = input.quantity
+                quantity = input.quantity,
+                CategoryId = input.CategoryId
+
             };
 
             await _productRepository.Add(model);
 
         }
 
-        public async Task<IEnumerable<Product>> GetAll(int? id,int? minprice,int? maxPrice, string? name, int? categoryId)
+        public async Task<IEnumerable<Product>> GetAll(int? id,int? minprice,int? maxPrice, string? name, int? categoryId, string? categoryName)
         {
 
-           return await _productRepository.GetAll(id, minprice, maxPrice, name, categoryId);
+           return await _productRepository.GetAll(id, minprice, maxPrice, name, categoryId, categoryName);
         }
 
         public async Task Update(UpdateProductInput input)
