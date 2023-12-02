@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shop.Domain;
 using Shop.Infrastructure.Data;
+using Shop.Infrastructure.Models.Dto;
 
 namespace Shop.Infrastructure.Repositories
 {
@@ -27,46 +28,7 @@ namespace Shop.Infrastructure.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAll(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId, string? categoryName)
-        {
-            var query = _db.Products.AsQueryable();
-
-            if (id.HasValue)
-            {
-               query = query.Where(p => p.Id == id.Value);
-            }
-
-            if (minPrice.HasValue)
-            {
-                query = query.Where(p => p.Price >= minPrice.Value);
-            }
-
-            if (maxPrice.HasValue)
-            {
-                query = query.Where(p => p.Price <= maxPrice.Value);
-            }
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query = query.Where(p => p.Name.Contains(name));
-            }
-
-            if (categoryId.HasValue)
-            {
-                query = query.Where(p => p.CategoryId == categoryId.Value);
-            }
-
-            if (!string.IsNullOrEmpty(categoryName))
-            {
-
-                query = query.Include(p => p.Category)
-                             .Where(p => p.Category.CategoryName.Contains(categoryName));
-            }
-
-            return await query.ToListAsync();
-
-
-        }
+     
 
         public async Task Update(Product product)
         {

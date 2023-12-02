@@ -16,8 +16,6 @@ namespace Shop.Domain.Repositories
 
         Task Delete(Product product);
 
-        Task<IEnumerable<Product>> GetAll(int? id,int? minPrice,int? maxPrice ,string? name ,int? categoryId, string? categoryName);
-
         Task<Product> Get(int id);
 
     }

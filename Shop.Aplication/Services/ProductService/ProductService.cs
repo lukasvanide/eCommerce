@@ -6,19 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Shop.Domain;
 using Shop.Aplication.Models.Dto;
-using Microsoft.EntityFrameworkCore;
-using Shop.Infrastructure.Data;
+using Shop.Aplication.Repository;
 
 namespace Shop.Aplication.Services.ProductService
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        private readonly AplicationDbContext _db;
+        private readonly IProductReadonlyRepository _productReadonlyRepository;
 
-        public ProductService(IProductRepository productRepository , AplicationDbContext db)
+        public ProductService(IProductRepository productRepository, IProductReadonlyRepository productReadonlyRepository)
         {
-            _db = db;
+            _productReadonlyRepository = productReadonlyRepository;
             _productRepository = productRepository;
         }
 
@@ -38,10 +37,9 @@ namespace Shop.Aplication.Services.ProductService
 
         }
 
-        public async Task<IEnumerable<Product>> GetAll(int? id,int? minprice,int? maxPrice, string? name, int? categoryId, string? categoryName)
+        public async Task<IEnumerable<ProductDto>> GetAll(int? id,int? minprice,int? maxPrice, string? name, int? categoryId, string? categoryName)
         {
-
-           return await _productRepository.GetAll(id, minprice, maxPrice, name, categoryId, categoryName);
+            return await _productReadonlyRepository.GetAll(id, minprice, maxPrice, name, categoryId, categoryName);
         }
 
         public async Task Update(UpdateProductInput input)

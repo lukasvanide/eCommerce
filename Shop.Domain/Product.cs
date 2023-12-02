@@ -21,7 +21,6 @@ namespace Shop.Domain
 
         public int CategoryId { get; set; }
 
-        [JsonIgnore]
-        public Category Category { get; set; } 
+        public Category Category { get; set; }
     }
 }

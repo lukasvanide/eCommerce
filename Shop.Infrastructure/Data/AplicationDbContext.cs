@@ -11,6 +11,7 @@ public class AplicationDbContext : DbContext
     }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<CartItem> CartItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -45,6 +46,12 @@ public class AplicationDbContext : DbContext
                     CategoryId = 2,
                     CategoryName = "Keyboard",
                 });
-
+        modelBuilder.Entity<CartItem>().HasData(
+                new CartItem()
+                {
+                    Id = 1,
+                    ProductId = 1, 
+                    Quantity = 2,
+                });
     }
 }

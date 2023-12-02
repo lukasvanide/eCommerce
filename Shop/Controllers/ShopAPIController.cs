@@ -5,7 +5,7 @@ using Shop.Aplication.Models.Dto;
 
 namespace Shop.Controllers
 {
-    [Route("api/ShopAPI")]
+    [Route("api/Shop")]
     [ApiController]
     public class ShopAPIController : ControllerBase
     {
@@ -19,9 +19,10 @@ namespace Shop.Controllers
         [HttpGet("search/")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<ActionResult<IEnumerable<Product>>> GetItems(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId,string? categoryName)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetItems(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId,string? categoryName)
         {
             var products = await _productService.GetAll(id, minPrice, maxPrice, name, categoryId, categoryName);
+            
             return Ok(products);
         }
 

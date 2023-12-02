@@ -7,7 +7,7 @@ using Shop.Aplication.Services.ProductCategoryService;
 
 namespace Shop.Controllers
 {
-    [Route("api/ProductCategoryAPI")]
+    [Route("api/ProductCategory")]
     [ApiController]
     public class ProductCategoryControoler : ControllerBase
     {

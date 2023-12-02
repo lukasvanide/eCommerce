@@ -1,4 +1,4 @@
-﻿using Shop.Infrastructure.Migrations;
+﻿
 
 namespace Shop.Aplication.Models.Dto
 {

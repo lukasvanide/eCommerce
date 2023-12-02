@@ -1,8 +1,12 @@
-﻿using Shop.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Shop.Aplication.Models.Dto
+namespace Shop.Infrastructure.Models.Dto
 {
-    public class ProductDto 
+    public class AppProductDto
     {
         public int Id { get; set; }
 
@@ -16,7 +20,5 @@ namespace Shop.Aplication.Models.Dto
 
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-
     }
 }
-
