@@ -9,10 +9,12 @@ public class AplicationDbContext : DbContext
     {
 
     }
+    public DbSet<LocalUsers> LocalUsers { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<CartItem> CartItems { get; set; }
-
+    public DbSet<Order> Order { get; set; }
+    public DbSet<OrderItems> OrderItems { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Product>().HasData(
@@ -50,8 +52,9 @@ public class AplicationDbContext : DbContext
                 new CartItem()
                 {
                     Id = 1,
-                    ProductId = 1, 
+                    ProductId = 1,
                     Quantity = 2,
+                    UserId = 1,
                 });
     }
 }

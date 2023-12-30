@@ -13,8 +13,8 @@ namespace Shop.Domain
         [Key]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        [JsonIgnore]
-        public IEnumerable<Product> Products { get;  set; }  
+
+        public IEnumerable<Product> Products { get; set; }
 
     }
 }

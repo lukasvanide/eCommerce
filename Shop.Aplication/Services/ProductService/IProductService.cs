@@ -10,7 +10,7 @@ namespace Shop.Aplication.Services.ProductService
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductDto>> GetAll(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId, string? categoryName);
+        Task<IEnumerable<ProductDto>> GetAll(int? id, double? minPrice,double? maxPrice, string? name, int? categoryId, string? categoryName);
 
         Task Create(CreateProductInput input);
 

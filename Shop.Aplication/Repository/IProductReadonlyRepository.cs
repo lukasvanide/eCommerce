@@ -11,6 +11,6 @@ namespace Shop.Aplication.Repository
 {
     public interface IProductReadonlyRepository
     {
-        Task<IEnumerable<ProductDto>> GetAll(int? id, int? minPrice, int? maxPrice, string? name, int? categoryId, string? categoryName);
+        Task<IEnumerable<ProductDto>> GetAll(int? id, double? minPrice, double? maxPrice, string? name, int? categoryId, string? categoryName);
     }
 }

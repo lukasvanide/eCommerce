@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain
 {
-    public class CartItem
+    public class Order
     {
         [Key]
         public int Id { get; set; }
-
-        public int Quantity { get; set; }
-
         public int UserId { get; set; }
-
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public DateTime OrderDate { get; set; }
+        public ICollection<OrderItems> OrderItems { get; set; }
     }
 }

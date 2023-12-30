@@ -20,7 +20,7 @@ namespace Shop.Infrastructure.Repositories
             _db = db;
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAll(int? id, int? minPrice, int? maxPrice, string? name, int? categoryId, string? categoryName)
+        public async Task<IEnumerable<ProductDto>> GetAll(int? id, double? minPrice, double? maxPrice, string? name, int? categoryId, string? categoryName)
         {
 
             var query = _db.Products.AsQueryable();

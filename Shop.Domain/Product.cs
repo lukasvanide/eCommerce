@@ -11,14 +11,15 @@ namespace Shop.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
-
+        [Required]
         public string Description { get; set; }
 
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         public int quantity { get; set; }
-
+       
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }

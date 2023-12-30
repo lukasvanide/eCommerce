@@ -37,7 +37,7 @@ namespace Shop.Aplication.Services.ProductService
 
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAll(int? id,int? minprice,int? maxPrice, string? name, int? categoryId, string? categoryName)
+        public async Task<IEnumerable<ProductDto>> GetAll(int? id,double? minprice,double? maxPrice, string? name, int? categoryId, string? categoryName)
         {
             return await _productReadonlyRepository.GetAll(id, minprice, maxPrice, name, categoryId, categoryName);
         }

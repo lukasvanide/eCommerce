@@ -22,8 +22,9 @@ namespace Shop.Controllers
         public async Task<ActionResult<IEnumerable<Category>>> GetItems()
         {
 
-            var productCategory =   await _productCategoryService.GetAllCategories();
-            return Ok(productCategory);
+                var productCategory = await _productCategoryService.GetAllCategories();
+                return Ok(productCategory);
+
         }
 
     }

@@ -17,26 +17,26 @@ namespace Shop.Controllers
         }
 
         [HttpGet("search/")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetItems(int? id, int? minPrice,int? maxPrice, string? name, int? categoryId,string? categoryName)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetItems(int? id, double? minPrice, double? maxPrice, string? name, int? categoryId, string? categoryName)
         {
+
             var products = await _productService.GetAll(id, minPrice, maxPrice, name, categoryId, categoryName);
-            
+
             return Ok(products);
+
+
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
         public async Task<ActionResult<Product>> CreateProduct(CreateProductInput input)
         {
+
             await _productService.Create(input);
 
             return Ok();
+
+
         }
 
         [HttpDelete("{id}")]
@@ -46,6 +46,7 @@ namespace Shop.Controllers
             await _productService.Delete(id);
             return Ok();
         }
+
 
     }
 }
