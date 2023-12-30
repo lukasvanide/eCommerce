@@ -22,5 +22,7 @@ namespace Shop.Domain.Repositories
 
         Task<bool> IsEmailRegistered(string email);
 
+        Task CookiesHistory(Cookies cookies);
+
     }
 }

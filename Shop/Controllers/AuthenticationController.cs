@@ -26,15 +26,22 @@ namespace Shop.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequestDto request)
         {
-            var user = await _userService.Login(request.UserName, request.Password);
+            var loginResult = await _userService.Login(request.UserName, request.Password);
 
-            if (user == null)
+
+            if (loginResult == null)
             {
                 return Unauthorized("Invalid username or password");
             }
-            var acssestoken = Guid.NewGuid().ToString();
+
+           
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+            };
             var cookieName = "turmanavuzamyuerebshi";
-            this.Response.Cookies.Append(cookieName, acssestoken);
+            this.Response.Cookies.Append(cookieName, loginResult.AccessToken.ToString(), cookieOptions);
             return Ok(); 
         }
 

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using Shop.Aplication.Repository;
 using Shop.Domain;
 using Shop.Domain.Repositories;
-using BCrypt.Net;
-
-
+using Shop.Aplication.Services.UserService.Dto;
+using System.Security.Cryptography;
 
 namespace Shop.Aplication.Services.UserService
 {
@@ -22,16 +21,23 @@ namespace Shop.Aplication.Services.UserService
             _userRepository = userRepository;
         }
 
-        public async Task<LocalUsers> Login(string username, string password)
+        public async Task<LoginResult> Login(string username, string password)
         {
             var user = await _userRepository.GetUserByUsername(username);
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
+            if (user == null || MD5Hash(password) != user.Password)
             {
                 throw new Exception("Invalid username or password");
             }
+            var cookies = new Cookies
+            {
+                UserId = user.Id,
+                LoginTime = DateTime.Now,
+                AccessToken = Guid.NewGuid(),
+            };
+            await _userRepository.CookiesHistory(cookies);
 
-            return user;
+            return new LoginResult { AccessToken = cookies.AccessToken.Value};
         }
 
         public async Task<LocalUsers> Register(string username, string password, string email)
@@ -47,7 +53,7 @@ namespace Shop.Aplication.Services.UserService
                 throw new Exception("emaili agebulia");
             }
 
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+            string hashedPassword = MD5Hash(password);
 
             var newUser = new LocalUsers
             {
@@ -61,7 +67,23 @@ namespace Shop.Aplication.Services.UserService
             return newUser;
         }
 
+        static string MD5Hash(string input)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
 
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in hashBytes)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+
+                return sb.ToString();
+            }
+        }
     }
 
 }

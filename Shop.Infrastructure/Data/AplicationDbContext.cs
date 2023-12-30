@@ -10,6 +10,7 @@ public class AplicationDbContext : DbContext
 
     }
     public DbSet<LocalUsers> LocalUsers { get; set; }
+    public DbSet<Cookies> Cookies { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<CartItem> CartItems { get; set; }
@@ -56,5 +57,6 @@ public class AplicationDbContext : DbContext
                     Quantity = 2,
                     UserId = 1,
                 });
+
     }
 }

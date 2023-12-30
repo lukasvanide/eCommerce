@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Shop.Infrastructure.Data;
 namespace Shop.Infrastructure.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231230115126_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,31 +86,6 @@ namespace Shop.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Shop.Domain.Cookies", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<Guid?>("AccessToken")
-                        .IsRequired()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("LoginTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Cookies");
-                });
-
             modelBuilder.Entity("Shop.Domain.LocalUsers", b =>
                 {
                     b.Property<int>("Id")
@@ -125,11 +102,17 @@ namespace Shop.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("LocalUsers");
                 });
@@ -234,6 +217,23 @@ namespace Shop.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Shop.Domain.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
             modelBuilder.Entity("Shop.Domain.CartItem", b =>
                 {
                     b.HasOne("Shop.Domain.Product", "Product")
@@ -245,11 +245,11 @@ namespace Shop.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Shop.Domain.Cookies", b =>
+            modelBuilder.Entity("Shop.Domain.LocalUsers", b =>
                 {
-                    b.HasOne("Shop.Domain.LocalUsers", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("Shop.Domain.User", "User")
+                        .WithOne("LocalUsers")
+                        .HasForeignKey("Shop.Domain.LocalUsers", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -290,6 +290,12 @@ namespace Shop.Infrastructure.Migrations
             modelBuilder.Entity("Shop.Domain.Order", b =>
                 {
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("Shop.Domain.User", b =>
+                {
+                    b.Navigation("LocalUsers")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

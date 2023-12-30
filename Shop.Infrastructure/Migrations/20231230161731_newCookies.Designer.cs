@@ -12,8 +12,8 @@ using Shop.Infrastructure.Data;
 namespace Shop.Infrastructure.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20231227115858_newAuthentiaction")]
-    partial class newAuthentiaction
+    [Migration("20231230161731_newCookies")]
+    partial class newCookies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,31 @@ namespace Shop.Infrastructure.Migrations
                             CategoryId = 2,
                             CategoryName = "Keyboard"
                         });
+                });
+
+            modelBuilder.Entity("Shop.Domain.Cookies", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid?>("AccessToken")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("LoginTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cookies");
                 });
 
             modelBuilder.Entity("Shop.Domain.LocalUsers", b =>
@@ -220,6 +245,17 @@ namespace Shop.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Shop.Domain.Cookies", b =>
+                {
+                    b.HasOne("Shop.Domain.LocalUsers", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Shop.Domain.OrderItems", b =>
