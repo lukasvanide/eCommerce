@@ -17,6 +17,7 @@ namespace Shop.Domain
         [Required]
         public Guid? AccessToken { get; set; }
 
+
         [ForeignKey("UserId")]
         public LocalUsers User { get; set; }
 

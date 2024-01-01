@@ -14,11 +14,12 @@ namespace Shop.Aplication.Services.UserService
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ICookieRepository _cookieRepository;
 
-
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, ICookieRepository cookieRepository)
         {
             _userRepository = userRepository;
+            _cookieRepository = cookieRepository;
         }
 
         public async Task<LoginResult> Login(string username, string password)
@@ -35,7 +36,7 @@ namespace Shop.Aplication.Services.UserService
                 LoginTime = DateTime.Now,
                 AccessToken = Guid.NewGuid(),
             };
-            await _userRepository.CookiesHistory(cookies);
+            await _cookieRepository.CookiesHistory(cookies);
 
             return new LoginResult { AccessToken = cookies.AccessToken.Value};
         }

@@ -60,10 +60,5 @@ namespace Shop.Infrastructure.Repositories
             return _db.LocalUsers.Any(u => u.Username == username);
         }
 
-        public async Task CookiesHistory(Cookies cookies)
-        {
-            await _db.Cookies.AddAsync(cookies);
-            await _db.SaveChangesAsync();
-        }
     }
 }
