@@ -15,17 +15,17 @@ namespace Shop.Controllers
     public class CartController : ControllerBase
     {
 
-        private readonly IProductCartService _ProductCartService;
+        private readonly IProductCartService _productCartService;
         public CartController(IProductCartService ProductCartService)
         {
-            _ProductCartService = ProductCartService;
+            _productCartService = ProductCartService;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddToCart(AddToCartRequestDto request)
         {
 
-                await _ProductCartService.AddToCart(request.ProductId, request.Quantity, request.UserId);
+                await _productCartService.AddToCart(request.ProductId, request.Quantity, request.UserId);
                 return Ok();
         }
 
@@ -33,7 +33,7 @@ namespace Shop.Controllers
         public async Task<IActionResult> RemoveFromCart(int cartItemId, int userId)
         {
 
-                await _ProductCartService.RemoveFromCart(userId, cartItemId);
+                await _productCartService.RemoveFromCart(userId, cartItemId);
                 return Ok();
 
         }
@@ -42,7 +42,7 @@ namespace Shop.Controllers
         public async Task<IActionResult> GetCart()
         {
 
-                var cartItems = await _ProductCartService.GetCartItems();
+                var cartItems = await _productCartService.GetCartItems();
                 return Ok(cartItems);
 
         }

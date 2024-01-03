@@ -13,18 +13,18 @@ namespace Shop.Aplication.Services.ProductCartService
     public class ProductCartService : IProductCartService
     {
         private readonly IProductRepository _productRepository;
-        private readonly ICartRepository _CartRepository;
+        private readonly ICartRepository _cartRepository;
 
         public ProductCartService(IProductRepository productRepository, ICartRepository CartRepository)
         {
-            _CartRepository = CartRepository;
+            _cartRepository = CartRepository;
             _productRepository = productRepository;
         }
         public async Task AddToCart(int productId, int quantity, int userId)
         {
             var product = await _productRepository.Get(productId);
 
-            var cartItem = await _CartRepository.GetCartItemByUserIdAndProductId(userId, productId);
+            var cartItem = await _cartRepository.GetCartItemByUserIdAndProductId(userId, productId);
             if(quantity <= 0)
             {
                 throw new BadRequestException("vaja ylea vici");
@@ -37,26 +37,26 @@ namespace Shop.Aplication.Services.ProductCartService
                     ProductId = productId,
                     Quantity = quantity
                 };
-                await _CartRepository.AddCartItem(cartItem);
+                await _cartRepository.AddCartItem(cartItem);
             }
             else
             {
                 cartItem.Quantity = quantity;
-                await _CartRepository.UpdateCartItem(cartItem);
+                await _cartRepository.UpdateCartItem(cartItem);
             }
         }
 
         public async Task<IEnumerable<CartItem>> GetCartItems()
         {
-            return await _CartRepository.GetAllCartItems();
+            return await _cartRepository.GetAllCartItems();
         }
 
         public async Task RemoveFromCart(int cartItemId, int userId)
         {
-            var cartItem = await _CartRepository.GetCartItemByUserIdAndCartItemId(cartItemId, userId);
+            var cartItem = await _cartRepository.GetCartItemByUserIdAndCartItemId(cartItemId, userId);
             if (cartItem != null)
             {
-                await _CartRepository.RemoveCartItem(cartItem);
+                await _cartRepository.RemoveCartItem(cartItem);
             }
         }
 
