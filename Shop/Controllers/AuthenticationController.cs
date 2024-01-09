@@ -40,7 +40,7 @@ namespace Shop.Controllers
                 HttpOnly = true,
                 Secure = true,
             };
-            var cookieName = "turmanavuzamyuerebshi";
+            var cookieName = "cookieees";
             this.Response.Cookies.Append(cookieName, loginResult.AccessToken.ToString(), cookieOptions);
             return Ok(); 
         }
@@ -55,7 +55,7 @@ namespace Shop.Controllers
         public async Task<IActionResult> CheckLogin()
         {
 
-            if (this.Request.Cookies.TryGetValue("turmanavuzamyuerebshi", out string acssestoken) && !string.IsNullOrEmpty(acssestoken))
+            if (this.Request.Cookies.TryGetValue("cookieees", out string acssestoken) && !string.IsNullOrEmpty(acssestoken))
             { 
                 return Ok("User is logged in");
             }
@@ -66,7 +66,7 @@ namespace Shop.Controllers
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
-            this.Response.Cookies.Delete("turmanavuzamyuerebshi");
+            this.Response.Cookies.Delete("cookieees");
             return Ok();
         }
     }

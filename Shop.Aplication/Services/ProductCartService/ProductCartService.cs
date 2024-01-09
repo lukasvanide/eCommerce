@@ -1,10 +1,13 @@
-﻿using Shop.Aplication.Repository;
+﻿using Microsoft.AspNetCore.Http;
+using Shop.Aplication.Repository;
 using Shop.Domain;
 using Shop.Domain.Exceptions;
 using Shop.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,10 +25,12 @@ namespace Shop.Aplication.Services.ProductCartService
         }
         public async Task AddToCart(int productId, int quantity, int userId)
         {
+
+
             var product = await _productRepository.Get(productId);
 
             var cartItem = await _cartRepository.GetCartItemByUserIdAndProductId(userId, productId);
-            if(quantity <= 0)
+            if (quantity <= 0)
             {
                 throw new BadRequestException("vaja ylea vici");
             }
@@ -44,6 +49,7 @@ namespace Shop.Aplication.Services.ProductCartService
                 cartItem.Quantity = quantity;
                 await _cartRepository.UpdateCartItem(cartItem);
             }
+
         }
 
         public async Task<IEnumerable<CartItem>> GetCartItems()

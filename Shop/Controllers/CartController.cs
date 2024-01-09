@@ -6,6 +6,7 @@ using Shop.Aplication.Services.ProductCategoryService;
 using Shop.Aplication.Services.ProductCartService;
 using Shop.Aplication.Models.CartDto;
 using Shop.Domain.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Shop.Controllers
