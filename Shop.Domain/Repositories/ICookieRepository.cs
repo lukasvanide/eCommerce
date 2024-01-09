@@ -9,5 +9,7 @@ namespace Shop.Domain.Repositories
     public interface ICookieRepository
     {
         Task CookiesHistory(Cookies cookies);
+
+        Task<Cookies> GetCookiesByAccessToken(Guid accessToken);
     }
 }

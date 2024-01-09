@@ -17,7 +17,6 @@ namespace Shop.Aplication.Services.ProductCartService
     {
         private readonly IProductRepository _productRepository;
         private readonly ICartRepository _cartRepository;
-
         public ProductCartService(IProductRepository productRepository, ICartRepository CartRepository)
         {
             _cartRepository = CartRepository;
@@ -25,8 +24,6 @@ namespace Shop.Aplication.Services.ProductCartService
         }
         public async Task AddToCart(int productId, int quantity, int userId)
         {
-
-
             var product = await _productRepository.Get(productId);
 
             var cartItem = await _cartRepository.GetCartItemByUserIdAndProductId(userId, productId);
@@ -65,6 +62,5 @@ namespace Shop.Aplication.Services.ProductCartService
                 await _cartRepository.RemoveCartItem(cartItem);
             }
         }
-
     }
 }

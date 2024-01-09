@@ -1,4 +1,5 @@
-﻿using Shop.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Domain;
 using Shop.Domain.Repositories;
 using Shop.Infrastructure.Data;
 using System;
@@ -21,6 +22,11 @@ namespace Shop.Infrastructure.Repositories
         {
             await _db.Cookies.AddAsync(cookies);
             await _db.SaveChangesAsync();
+        }
+        public async Task<Cookies> GetCookiesByAccessToken(Guid accessToken)
+        {
+            return await _db.Cookies
+                .FirstOrDefaultAsync(c => c.AccessToken == accessToken);
         }
     }
 }
