@@ -32,7 +32,7 @@ namespace Shop.Aplication.Services.ProductCartService
             var cartItem = await _cartRepository.GetCartItemByUserIdAndProductId(userId, productId);
             if (quantity <= 0)
             {
-                throw new BadRequestException("vaja ylea vici");
+                throw new BadRequestException("bad request");
             }
             if (cartItem == null)
             {

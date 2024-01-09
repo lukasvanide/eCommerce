@@ -45,13 +45,13 @@ namespace Shop.Aplication.Services.UserService
         {
             if (await _userRepository.IsUsernameTaken(username))
             {
-                throw new Exception("saxeli agebulia");
+                throw new Exception("name is taken");
             }
 
 
             if (await _userRepository.IsEmailRegistered(email))
             {
-                throw new Exception("emaili agebulia");
+                throw new Exception("email is taken");
             }
 
             string hashedPassword = MD5Hash(password);
