@@ -9,6 +9,7 @@ using Shop.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Shop.Domain.Repositories;
+using Shop.Aplication.Services.SessionService;
 
 namespace Shop.Controllers
 {
@@ -23,33 +24,28 @@ namespace Shop.Controllers
         {
             _productCartService = ProductCartService;
             _cookieRepository = cookieRepository;
+
+
         }
 
         [HttpPost]
         public async Task<IActionResult> AddToCart(AddToCartRequestDto request)
         {
-            if (this.Request.Cookies.TryGetValue("cookieees", out string accessToken) && !string.IsNullOrEmpty(accessToken))
-            {
-                var cookies = await _cookieRepository.GetCookiesByAccessToken(Guid.Parse(accessToken));
 
-                if (cookies != null)
-                {
-                    // User is logged in
-                    await _productCartService.AddToCart(request.ProductId, request.Quantity, cookies.UserId);
 
-                    return Ok("Product added to the cart");
-                }
-            }
+            await _productCartService.AddToCart(request.ProductId, request.Quantity);
 
-            return Unauthorized("User is not logged in");
+            return Ok("Product added to the cart");
+
+
         }
 
         [HttpDelete("{cartItemId}")]
         public async Task<IActionResult> RemoveFromCart(int cartItemId, int userId)
         {
 
-                await _productCartService.RemoveFromCart(userId, cartItemId);
-                return Ok();
+            await _productCartService.RemoveFromCart(userId, cartItemId);
+            return Ok();
 
         }
 
@@ -57,8 +53,8 @@ namespace Shop.Controllers
         public async Task<IActionResult> GetCart()
         {
 
-                var cartItems = await _productCartService.GetCartItems();
-                return Ok(cartItems);
+            var cartItems = await _productCartService.GetCartItems();
+            return Ok(cartItems);
 
         }
 

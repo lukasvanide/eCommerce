@@ -10,7 +10,7 @@ namespace Shop.Aplication.Services.ProductCartService
 {
     public interface IProductCartService
     {
-        Task AddToCart(int productId, int quantity, int userId);
+        Task AddToCart(int productId, int quantity);
         
         Task RemoveFromCart(int cartItemId, int userId);
 

@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Shop.Aplication.Services.UserService;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Shop.Aplication.Services.SessionService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,18 +39,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICookieRepository, CookieRepository>();
+builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddTransient<SessionMiddleware>();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-           .AddCookie(options =>
-           {
-               options.LoginPath = "/Account/Login"; 
-               options.AccessDeniedPath = "/Account/AccessDenied"; 
-           });
 
 var app = builder.Build();
 
@@ -70,6 +66,10 @@ app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+app.UseMiddleware<SessionMiddleware>();
+
 app.MapControllers();
 
 app.Run();
+
+

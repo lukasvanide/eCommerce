@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Shop.Aplication.Repository;
+using Shop.Aplication.Services.SessionService;
 using Shop.Domain;
 using Shop.Domain.Exceptions;
 using Shop.Domain.Repositories;
@@ -17,15 +18,17 @@ namespace Shop.Aplication.Services.ProductCartService
     {
         private readonly IProductRepository _productRepository;
         private readonly ICartRepository _cartRepository;
-        public ProductCartService(IProductRepository productRepository, ICartRepository CartRepository)
+        private readonly ISessionService _sessionService;
+        public ProductCartService(IProductRepository productRepository, ICartRepository CartRepository, ISessionService sessionService)
         {
             _cartRepository = CartRepository;
             _productRepository = productRepository;
+            _sessionService = sessionService;
         }
-        public async Task AddToCart(int productId, int quantity, int userId)
+        public async Task AddToCart(int productId, int quantity)
         {
             var product = await _productRepository.Get(productId);
-
+            var userId = await _sessionService.GetCurrentUserId();
             var cartItem = await _cartRepository.GetCartItemByUserIdAndProductId(userId, productId);
             if (quantity <= 0)
             {
