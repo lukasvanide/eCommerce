@@ -48,7 +48,7 @@ namespace Shop.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegistrationRequestDto request)
         {
-            var user = await _userService.Register(request.Username, request.Password, request.Email);
+            var user = await _userService.Register(request.Username, request.Email, request.Password);
             return Ok();
         }
         [HttpGet]

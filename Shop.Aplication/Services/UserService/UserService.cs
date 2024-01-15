@@ -41,7 +41,7 @@ namespace Shop.Aplication.Services.UserService
             return new LoginResult { AccessToken = cookies.AccessToken.Value};
         }
 
-        public async Task<LocalUsers> Register(string username, string password, string email)
+        public async Task<LocalUsers> Register(string username, string email, string password)
         {
             if (await _userRepository.IsUsernameTaken(username))
             {
@@ -59,8 +59,8 @@ namespace Shop.Aplication.Services.UserService
             var newUser = new LocalUsers
             {
                 Username = username,
-                Password = hashedPassword, 
-                Email = email
+                Email = email,
+                Password = hashedPassword
             };
 
             await _userRepository.AddUser(newUser);
