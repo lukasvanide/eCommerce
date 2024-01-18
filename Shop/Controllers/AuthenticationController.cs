@@ -37,8 +37,12 @@ namespace Shop.Controllers
            
             var cookieOptions = new CookieOptions
             {
-                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                HttpOnly = false,
                 Secure = true,
+                Expires = DateTimeOffset.UtcNow.AddHours(1), 
+                Domain = "http://localhost:3004"
+
             };
             var cookieName = "cookieees";
             this.Response.Cookies.Append(cookieName, loginResult.AccessToken.ToString(), cookieOptions);
