@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Shop.Domain;
+using Shop.Domain.Entity;
 using Shop.Domain.Models.UsersDto;
 using Shop.Domain.Repositories;
 using Shop.Infrastructure.Data;

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Shop.Domain;
 using Shop.Aplication.Models.Dto;
 using Shop.Aplication.Repository;
+using Shop.Domain.Entity;
 
 namespace Shop.Aplication.Services.ProductService
 {
@@ -14,6 +14,9 @@ namespace Shop.Aplication.Services.ProductService
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductReadonlyRepository _productReadonlyRepository;
+
+        private static readonly Dictionary<string, object> _cache = new Dictionary<string, object>();
+        private static readonly Dictionary<string, DateTime> _expirationTimes = new Dictionary<string, DateTime>();
 
         public ProductService(IProductRepository productRepository, IProductReadonlyRepository productReadonlyRepository)
         {

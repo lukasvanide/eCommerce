@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 
-namespace Shop.Domain
+namespace Shop.Domain.Entity
 {
 
     public class Product
@@ -19,7 +19,7 @@ namespace Shop.Domain
         public double Price { get; set; }
 
         public int quantity { get; set; }
-       
+
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }

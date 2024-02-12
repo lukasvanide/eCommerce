@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Domain;
 using Shop.Aplication.Services.ProductService;
 using Shop.Aplication.Models.Dto;
+using Microsoft.Extensions.Caching.Memory;
+using Shop.Domain.Cashing;
+using Shop.Domain.Entity;
 
 namespace Shop.Controllers
 {
@@ -9,11 +11,14 @@ namespace Shop.Controllers
     [ApiController]
     public class ShopAPIController : ControllerBase
     {
-
+        private readonly ILogger<ShopAPIController> _logger;
         private readonly IProductService _productService;
-        public ShopAPIController(IProductService productService)
+
+
+        public ShopAPIController(IProductService productService, ILogger<ShopAPIController> logger)
         {
             _productService = productService;
+            _logger = logger;
         }
 
         [HttpGet("search/")]
@@ -24,7 +29,6 @@ namespace Shop.Controllers
             var products = await _productService.GetAll(id, minPrice, maxPrice, name, categoryId, categoryName);
 
             return Ok(products);
-
 
         }
 

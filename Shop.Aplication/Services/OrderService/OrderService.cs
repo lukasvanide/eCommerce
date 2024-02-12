@@ -1,4 +1,5 @@
 ﻿using Shop.Domain;
+using Shop.Domain.Entity;
 using Shop.Domain.Exceptions;
 using Shop.Domain.Repositories;
 using Shop.Domain.Transaction;

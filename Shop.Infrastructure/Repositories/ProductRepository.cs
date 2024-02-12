@@ -1,8 +1,8 @@
 ﻿using Shop.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Shop.Domain;
 using Shop.Infrastructure.Data;
 using Shop.Infrastructure.Models.Dto;
+using Shop.Domain.Entity;
 
 namespace Shop.Infrastructure.Repositories
 {

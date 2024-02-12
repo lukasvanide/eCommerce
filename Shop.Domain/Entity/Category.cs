@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Shop.Domain
+namespace Shop.Domain.Entity
 {
     public class Category
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shop.Domain;
+using Shop.Domain.Entity;
 using Shop.Domain.Repositories;
 using Shop.Infrastructure.Data;
 
@@ -15,13 +15,13 @@ namespace Shop.Infrastructure.Repositories
             _db = db;
         }
 
-        public async Task AddCartItem(Domain.CartItem cartItem)
+        public async Task AddCartItem(CartItem cartItem)
         {
-            _db.CartItems.Add(cartItem);
+            _db.CartItems.Add(cartItem); 
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Domain.CartItem>> GetAllCartItems()
+        public async Task<IEnumerable<CartItem>> GetAllCartItems()
         {
             var getAllItems = await _db.CartItems.ToListAsync();
             return getAllItems;
@@ -29,25 +29,25 @@ namespace Shop.Infrastructure.Repositories
 
 
 
-        public async Task RemoveCartItem(Domain.CartItem cartItem)
+        public async Task RemoveCartItem(CartItem cartItem)
         {
             _db.CartItems.Remove(cartItem);
             await _db.SaveChangesAsync();
         }
 
-        public async Task UpdateCartItem(Domain.CartItem cartItem)
+        public async Task UpdateCartItem(CartItem cartItem)
         {
             _db.CartItems.Update(cartItem);
             await _db.SaveChangesAsync();
         }
 
-        public async Task<Domain.CartItem> GetCartItemByUserIdAndProductId(int userId, int productId)
+        public async Task<CartItem> GetCartItemByUserIdAndProductId(int userId, int productId)
         {
             return await _db.CartItems
                 .FirstOrDefaultAsync(c => c.UserId == userId && c.ProductId == productId);
         }
 
-        public async Task<IEnumerable<Domain.CartItem>> GetAllCartItemsByUserId(int userId)
+        public async Task<IEnumerable<CartItem>> GetAllCartItemsByUserId(int userId)
         {
             return await _db.CartItems
                 .Where(ci => ci.UserId == userId)
@@ -56,7 +56,7 @@ namespace Shop.Infrastructure.Repositories
 
 
         }
-        public async Task<Domain.CartItem> GetCartItemByUserIdAndCartItemId(int userId, int cartItemId)
+        public async Task<CartItem> GetCartItemByUserIdAndCartItemId(int userId, int cartItemId)
         {
             return await _db.CartItems
                 .FirstOrDefaultAsync(c => c.UserId == userId && c.Id == cartItemId);

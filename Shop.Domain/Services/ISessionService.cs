@@ -11,5 +11,7 @@ namespace Shop.Aplication.Services.SessionService
     {
         public string AccessToken { get; set; }
         Task<int> GetCurrentUserId();
+
+        
     }
 }

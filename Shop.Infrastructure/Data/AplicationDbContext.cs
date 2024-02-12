@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shop.Domain;
+using Shop.Domain.Entity;
 
 namespace Shop.Infrastructure.Data;
 

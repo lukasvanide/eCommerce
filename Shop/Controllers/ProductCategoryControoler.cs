@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Domain;
 using Shop.Aplication.Services.ProductService;
 using Shop.Aplication.Models.Dto;
 using Shop.Aplication.Services.ProductCategoryService;
+using Shop.Domain.Entity;
 
 
 namespace Shop.Controllers

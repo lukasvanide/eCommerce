@@ -17,6 +17,8 @@ using Shop.Aplication.Services.UserService;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Shop.Aplication.Services.SessionService;
+using Shop.Domain.Cashing;
+using Shop.Infrastructure.Cashing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,8 +42,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICookieRepository, CookieRepository>();
 builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddSingleton(typeof(IInMemoryCaching<>), typeof(InMemoryChaching<>));
+
+
+
 builder.Services.AddTransient<SessionMiddleware>();
 builder.Services.AddControllers();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

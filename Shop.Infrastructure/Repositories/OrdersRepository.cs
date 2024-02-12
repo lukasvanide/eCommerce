@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shop.Domain;
+using Shop.Domain.Entity;
 using Shop.Domain.Repositories;
 using Shop.Infrastructure.Data;
 

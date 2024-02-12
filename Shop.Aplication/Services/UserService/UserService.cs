@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shop.Aplication.Repository;
-using Shop.Domain;
 using Shop.Domain.Repositories;
 using Shop.Aplication.Services.UserService.Dto;
 using System.Security.Cryptography;
+using Shop.Domain.Entity;
 
 namespace Shop.Aplication.Services.UserService
 {

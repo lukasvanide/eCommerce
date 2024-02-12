@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Shop.Aplication.Services.UserService.Dto;
-using Shop.Domain;
+using Shop.Domain.Entity;
 using Shop.Domain.Repositories;
 using System;
 using System.Collections.Generic;

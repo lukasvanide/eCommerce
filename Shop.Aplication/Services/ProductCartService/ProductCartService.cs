@@ -1,16 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Shop.Aplication.Repository;
+﻿using Microsoft.Extensions.Logging;
 using Shop.Aplication.Services.SessionService;
-using Shop.Domain;
+using Shop.Domain.Cashing;
+using Shop.Domain.Entity;
 using Shop.Domain.Exceptions;
 using Shop.Domain.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Aplication.Services.ProductCartService
 {
@@ -19,11 +13,20 @@ namespace Shop.Aplication.Services.ProductCartService
         private readonly IProductRepository _productRepository;
         private readonly ICartRepository _cartRepository;
         private readonly ISessionService _sessionService;
-        public ProductCartService(IProductRepository productRepository, ICartRepository CartRepository, ISessionService sessionService)
+        private readonly ILogger<ProductCartService> _logger;
+        private readonly IInMemoryCaching<List<CartItem>> _cache;
+
+        public ProductCartService(IProductRepository productRepository,
+            ICartRepository CartRepository,
+            ISessionService sessionService,
+            ILogger<ProductCartService> logger ,
+            IInMemoryCaching<List<CartItem>> cache)
         {
             _cartRepository = CartRepository;
             _productRepository = productRepository;
             _sessionService = sessionService;
+            _logger = logger;
+            _cache = cache;
         }
         public async Task AddToCart(int productId, int quantity)
         {
@@ -54,7 +57,20 @@ namespace Shop.Aplication.Services.ProductCartService
 
         public async Task<IEnumerable<CartItem>> GetCartItems()
         {
-            return await _cartRepository.GetAllCartItems();
+            string cached = "Accept";
+            var cartItems = await _cache.Get(cached);
+
+            if (cartItems != null)
+            {
+
+                return cartItems;
+            }
+            else
+            {
+                cartItems = (await _cartRepository.GetAllCartItems()).ToList();
+                await _cache.Set(cached, cartItems, TimeSpan.FromMinutes(10));
+                return cartItems;
+            }
         }
 
         public async Task RemoveFromCart(int cartItemId, int userId)
