@@ -99,14 +99,10 @@ We welcome contributions to improve this project! Please follow these steps to c
 
 Please make sure to update tests as appropriate and adhere to the project's coding guidelines.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 If you have any questions or feedback, feel free to reach out:
 
-- **Project Maintainer**: [Lukas Vanide](mailto:lukas@example.com) (Replace with actual email)
+- **Project Maintainer**: [Lukas Svanide](mailto:lukas@example.com) (Replace with actual email)
 
 Thank you for checking out the eCommerce project! We hope you find it useful and look forward to your contributions.
